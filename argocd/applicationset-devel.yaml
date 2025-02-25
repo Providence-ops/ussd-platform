@@ -25,7 +25,7 @@ spec:
     metadata:
       name: "{{name}}-{{environment}}"
     spec:
-      project: default
+      project: ussd
       source:
         repoURL: https://github.com/Providence-ops/ussd-platform.git
         path: "{{repoPath}}"
