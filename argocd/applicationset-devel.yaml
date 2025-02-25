@@ -14,10 +14,10 @@ spec:
           - list:
               elements:
                 - name: payments
-                  repoPath: helm-chart
+                  # repoPath: helm-chart/betika-devel/payments/values.yaml
                   namespace: ussd-platform
                 - name: client
-                  repoPath: helm-chart
+                  # repoPath: helm-chart/betika-devel/client/values.yaml
                   namespace: ussd-platform  
 
     
@@ -28,11 +28,11 @@ spec:
       project: ussd
       source:
         repoURL: https://github.com/Providence-ops/ussd-platform.git
-        path: "{{repoPath}}"
+        path: helm-chart
         targetRevision: HEAD
         helm:
           valueFiles:
-            - "values-{{name}}.yaml"
+            - betika-devel/{{name}}/values.yaml 
       destination:
         server: "{{server}}"
         namespace: "{{namespace}}"
