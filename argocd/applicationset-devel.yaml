@@ -19,8 +19,6 @@ spec:
                 - name: client
                   # repoPath: helm-chart/betika-devel/client/values.yaml
                   namespace: ussd-platform  
-
-    
   template:
     metadata:
       name: "{{name}}-{{environment}}"
