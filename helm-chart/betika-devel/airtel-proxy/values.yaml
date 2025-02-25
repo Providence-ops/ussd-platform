@@ -1,4 +1,4 @@
-appName: ussd-client-platform
+appName: ussd-airtel-proxy
 namespace: ussd-platform
 replicaCount: 1
 
@@ -7,7 +7,7 @@ image:
     pullPolicy: IfNotPresent
     tag: "stable"
 
-      # repository: europe-west3-docker.pkg.dev/betika-shared-services/ussd-platform/ussd-client-platform
+      # repository: europe-west3-docker.pkg.dev/betika-shared-services/ussd-platform/ussd-proxies
       # pullPolicy: IfNotPresent
       # tag: "latest"
 
@@ -38,7 +38,7 @@ enVars:
 service:
   http:
     enabled: true
-    name: ussd-ug-client-platform-svc
+    name: ussd-airtel-ug-proxy-svc
     type: ClusterIP
     port: 8080
     targetPort: 8080
@@ -46,7 +46,7 @@ service:
     
   grpc:
       enabled: true
-      name: ussd-ug-client-platform-svc-grpc
+      name: ussd-airtel-ug-proxy-svc-grpc
       type: ClusterIP
       port: 8040
       targetPort: 8040
