@@ -14,10 +14,10 @@ spec:
           - list:
               elements:
                 - name: payments
-                  repoPath: ussd-helm/ussd-platform/
+                  repoPath: helm-chart
                   namespace: ussd-platform
                 - name: client
-                  repoPath: ussd-helm/ussd-platform/
+                  repoPath: helm-chart
                   namespace: ussd-platform  
 
     
