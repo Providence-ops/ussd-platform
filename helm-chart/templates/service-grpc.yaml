@@ -1,0 +1,18 @@
+{{- if .Values.service.grpc.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.service.grpc.name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    {{- include "ussd-platform.labels" . | nindent 4 }}
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  type: {{ .Values.service.grpc.type }} 
+  ports:
+    - name: grpc
+      port: {{ .Values.service.grpc.port }}
+      targetPort: {{ .Values.service.grpc.targetPort }}
+      protocol: TCP
+{{- end }}

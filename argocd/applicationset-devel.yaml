@@ -1,0 +1,44 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: ussd
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - environment: devel
+                  server: https://kubernetes.default.svc
+          - list:
+              elements:
+                - name: payments
+                  repoPath: ussd-helm/ussd-platform/
+                  namespace: ussd-platform
+                - name: client
+                  repoPath: ussd-helm/ussd-platform/
+                  namespace: ussd-platform  
+
+    
+  template:
+    metadata:
+      name: "{{name}}-{{environment}}"
+    spec:
+      project: default
+      source:
+        repoURL: https://github.com/Providence-ops/ussd-platform.git
+        path: "{{repoPath}}"
+        targetRevision: HEAD
+        helm:
+          valueFiles:
+            - "values-{{name}}.yaml"
+      destination:
+        server: "{{server}}"
+        namespace: "{{namespace}}"
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - ServerSideApply=true
