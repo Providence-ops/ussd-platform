@@ -55,6 +55,7 @@ service:
     type: ClusterIP
     port: 8080
     targetPort: 8080
+    containerPort: 8080 
     
   grpc:
       enabled: true
@@ -62,6 +63,7 @@ service:
       type: ClusterIP
       port: 8040
       targetPort: 8040
+      containerPort: 8040
 
 livenessProbe:
   httpGet:
