@@ -18,7 +18,16 @@ spec:
                   namespace: ussd-platform
                 - name: client
                   # repoPath: helm-chart/betika-devel/client/values.yaml
+                  namespace: ussd-platform 
+                - name: account
+                  # repoPath: helm-chart/betika-devel/client/values.yaml
                   namespace: ussd-platform  
+                - name: sport
+                  # repoPath: helm-chart/betika-devel/client/values.yaml
+                  namespace: ussd-platform  
+                - name: bankerbet
+                  # repoPath: helm-chart/betika-devel/client/values.yaml
+                  namespace: ussd-platform         
   template:
     metadata:
       name: "{{name}}-{{environment}}"

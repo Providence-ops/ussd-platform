@@ -1,0 +1,50 @@
+appName: ussd-simulator-platform
+namespace: ussd-platform
+replicaCount: 1
+
+image:
+    repository: nginx
+    pullPolicy: IfNotPresent
+    tag: "stable"
+
+      # repository: europe-west3-docker.pkg.dev/betika-shared-services/ussd-platform/ussd-simulator-platform
+      # pullPolicy: IfNotPresent
+      # tag: "latest"
+
+podAnnotations: {}
+
+configMap:
+  name: ussd-ug-simulator-platform-config
+    
+service:
+  http:
+    enabled: true
+    name: ussd-ug-simulator-platform-svc
+    type: ClusterIP
+    port: 8080
+    targetPort: 8080
+    containerPort: 8080 
+    
+  grpc:
+      enabled: true
+      name: ussd-ug-simulator-platform-svc-grpc
+      type: ClusterIP
+      port: 8040
+      targetPort: 8040
+      containerPort: 8040
+
+livenessProbe:
+  httpGet:
+      path: /
+      port: http
+readinessProbe:
+  httpGet:
+      path: /
+      port: http
+
+autoscaling:
+  enabled: false
+
+
+
+  

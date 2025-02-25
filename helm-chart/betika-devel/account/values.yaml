@@ -1,4 +1,4 @@
-appName: ussd-client-platform
+appName: ussd-account-platform
 namespace: ussd-platform
 replicaCount: 1
 
@@ -7,34 +7,40 @@ image:
     pullPolicy: IfNotPresent
     tag: "stable"
 
-      # repository: europe-west3-docker.pkg.dev/betika-shared-services/ussd-platform/ussd-client-platform
+      # repository: europe-west3-docker.pkg.dev/betika-shared-services/ussd-platform/ussd-account-platform
       # pullPolicy: IfNotPresent
       # tag: "latest"
 
 podAnnotations: {}
 
 configMap:
-  name: ussd-client-platform-config
+  name: ussd-accoubt-platform-config
     
 enVars:
   data:
-        GRPC_HOST_PORT: "8040"
-        HTTP_HOST_PORT: "8080"
+        GRPC_PORT: "8040"
+        HTTP_PORT: "8080"
+        ACCOUNT_HOST: "account"
         REDIS_READ_HOST: "127.0.0.1"
         REDIS_READ_PORT: "7001"
         REDIS_READ_PASSWORD: ""
         REDIS_WRITE_HOST: "127.0.0.1"
         REDIS_WRITE_PORT: "7001"
         REDIS_WRITE_PASSWORD: ""
-        REDIS_DB: ""
-        CLIENT_ID: "client_service"
-        USE_REDIS: "false"
-        PAYMENT_HOST: "devel-ug-ussd-payment-service.betika.private:8040"
-        ACCOUNT_HOST: "devel-ug-ussd-account-service.betika.private:8040"
-        SPORT_HOST: "devel-ussd-sport-service-grpc.betika.private:8040"
+        REDIS_DB: "0"
         LOG_LEVEL: "debug"
-        APP: "client"
+        APP: "account"
+        CLIENT_ID: "account_service"
+        ISS: "https://betika.com"
+        JWT_KEY: "Wfa4kAO7ohNhkaCROaJngWkVTVMKbStY"
+        WEB_API: "https://api-ug.dev01.int.betika.com/v1"
+        REGISTER_OFFLINE: "https://registration.dev01.int.betika.com/v2/register/offline"
+        PAYMENT_HOST: "devel-ug-ussd-payment-service.betika.private:8040"
         PAYMENTS_REQUEST_TIMEOUT: "10"
+        ACCOUNT_REQUEST_TIMEOUT: "10"
+        RESUME_SESSION: "true"
+        API_REQUEST_TIMEOUT: "10"
+        APP_ENV: "development"
         KAFKA_BROKER: "pkc-z1o60.europe-west1.gcp.confluent.cloud:9092"
         KAFKA_SECURITY_PROTOCOL: "SASL_SSL"
         KAFKA_SASL_MECHANISM: "PLAIN"
@@ -44,14 +50,11 @@ enVars:
         KAFKA_SCHEMA_REGISTRY_API_KEY: "TQSJPC3RCBHWORU7"
         KAFKA_SCHEMA_REGISTRY_API_SECRET: "DH7Z3bgGvWoVL2InMbM0i/L2A/hO4pVvVgOb9NacwH7pq4GhJH8X5IvTRZQYuznf"
         INIT_KAFKA: "true"
-        ACCOUNT_REQUEST_TIMEOUT: "10"
-        RESUME_SESSION: "true"
-        APP_ENV: "development"
 
 service:
   http:
     enabled: true
-    name: ussd-ug-client-platform-svc
+    name: ussd-ug-account-platform-svc
     type: ClusterIP
     port: 8080
     targetPort: 8080
@@ -59,7 +62,7 @@ service:
     
   grpc:
       enabled: true
-      name: ussd-ug-client-platform-svc-grpc
+      name: ussd-ug-account-platform-svc-grpc
       type: ClusterIP
       port: 8040
       targetPort: 8040
