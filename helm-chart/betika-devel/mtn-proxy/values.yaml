@@ -1,4 +1,4 @@
-appName: ussd-airtel-proxy
+appName: ussd-mtn-proxy
 namespace: ussd-platform
 replicaCount: 1
 
@@ -14,27 +14,18 @@ image:
 podAnnotations: {}
 
 configMap:
-  name: ussd-airtel-ug-proxy-config
+  name: ussd-mtn-ug-proxy-config
     
 enVars:
   data:
-        GRPC_HOST_PORT: "8040"
-        HTTP_HOST_PORT: "8080"
-        REDIS_READ_HOST: "127.0.0.1"
-        REDIS_READ_PORT: "7001"
-        REDIS_READ_PASSWORD: ""
-        REDIS_WRITE_HOST: "127.0.0.1"
-        REDIS_WRITE_PORT: "7001"
-        REDIS_WRITE_PASSWORD: ""
-        REDIS_DB: ""
-        CLIENT_ID: "client_service"
-        USE_REDIS: "false"
-        PAYMENT_HOST: "devel-ug-ussd-payment-service.betika.private:8040"
-        ACCOUNT_HOST: "devel-ug-ussd-account-service.betika.private:8040"
-        SPORT_HOST: "devel-ussd-sport-service-grpc.betika.private:8040"
-        LOG_LEVEL: "debug"
-        APP: "client"
-        PAYMENTS_REQUEST_TIMEOUT: "10"
+        CLIENT_HOST_ADDR: "devel-ug-ussd-client-service.betika.private:8040"
+        ACCOUNT_HOST_ADDR: "devel-ug-ussd-account-service.betika.private:8040"
+        GRPC_SERVER: "8040"
+        GATEWAY_PORT: "8080"
+        APP: "MTN UG Proxy"
+        LOG_LEVEL: ""
+        CP_REF_ID: "193"
+        CLIENT_REQUESTS_TIMEOUT: "10"
         KAFKA_BROKER: "pkc-z1o60.europe-west1.gcp.confluent.cloud:9092"
         KAFKA_SECURITY_PROTOCOL: "SASL_SSL"
         KAFKA_SASL_MECHANISM: "PLAIN"
@@ -43,15 +34,11 @@ enVars:
         KAFKA_SCHEMA_REGISTRY: "https://psrc-yo2rpj.europe-southwest1.gcp.confluent.cloud"
         KAFKA_SCHEMA_REGISTRY_API_KEY: "TQSJPC3RCBHWORU7"
         KAFKA_SCHEMA_REGISTRY_API_SECRET: "DH7Z3bgGvWoVL2InMbM0i/L2A/hO4pVvVgOb9NacwH7pq4GhJH8X5IvTRZQYuznf"
-        INIT_KAFKA: "true"
-        ACCOUNT_REQUEST_TIMEOUT: "10"
-        RESUME_SESSION: "true"
-        APP_ENV: "development"
 
 service:
   http:
     enabled: true
-    name: ussd-airtel-ug-proxy-svc
+    name: ussd-mtn-ug-proxy-svc
     type: ClusterIP
     port: 8080
     targetPort: 8080
@@ -59,7 +46,7 @@ service:
     
   grpc:
       enabled: true
-      name: ussd-airtel-ug-svc-grpc
+      name: ussd-mtn-ug-proxy-svc-grpc
       type: ClusterIP
       port: 8040
       targetPort: 8040

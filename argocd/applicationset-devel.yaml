@@ -27,7 +27,13 @@ spec:
                   namespace: ussd-platform  
                 - name: bankerbet
                   # repoPath: helm-chart/betika-devel/client/values.yaml
-                  namespace: ussd-platform         
+                  namespace: ussd-platform  
+                - name: airtel-proxy
+                  # repoPath: helm-chart/betika-devel/client/values.yaml
+                  namespace: ussd-platform
+                - name: mtn-proxy
+                  # repoPath: helm-chart/betika-devel/client/values.yaml
+                  namespace: ussd-platform               
   template:
     metadata:
       name: "{{name}}-{{environment}}"
